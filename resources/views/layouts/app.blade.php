@@ -39,7 +39,7 @@
     </nav>
     <header class="masthead bg-primary text-white text-center py-4">
         <div class="container d-flex align-items-center flex-column">
-            <h2>@yield('subtitle', 'Title')</h2>
+            <h2>@yield('subtitle', $viewData['title'])</h2>
         </div>
     </header>
     <!-- header -->

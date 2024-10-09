@@ -3,24 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cart;
 use App\Models\Product;
 
-class ProductController extends Controller
+class CartController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
+        $viewDatas = [
+            'title' => 'Cart page',
+        ];
+        return view ('home.cart')->with('viewData', $viewDatas);;
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request, string $id)
     {
-        //
+        // var_dump($id, $request->quantity);
+        // die();
+        $product = Product::find($id);
+        Cart::create([
+            'user_id' => '2',
+            'product_id' => $request->product_id,
+            'quantity' => $request->quantity
+        ]);
+        return redirect()->route('cart');
     }
 
     /**
@@ -28,24 +40,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // var_dump($request);
-        // die();
-
-        if ($request->ajax()) {
-            $products = Product::paginate(3);
-            return response()->json([
-                'products' => $products->items(),
-                'hasMore' => $products->hasMorePages(),
-            ]);
-        }
-        // $products = Product::all();
-        $products = Product::paginate(perPage: 6);
-        $viewDatas = [
-            'title' => 'Home',
-        ];
-        return view('home.index')
-            ->with("products", $products)
-            ->with('viewData', $viewDatas);
+        //
     }
 
     /**
@@ -54,10 +49,10 @@ class ProductController extends Controller
     public function show(string $id)
     {
         $product = Product::find($id);
-         $viewDatas = [
-            'title' => 'Home',
+        $viewDatas = [
+            'title' => 'Cart page',
         ];
-        return view('home.product-detail', compact('product'))->with('viewData', $viewDatas);
+        return view('home.product-detail', compact('product'))->with('viewData', $viewDatas);;
     }
 
     /**
