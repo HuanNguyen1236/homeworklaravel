@@ -10,9 +10,7 @@ use App\Http\Controllers\CartController;
 Route::get('/',[ProductController::class, 'store'])->name('index');
 Route::get('/about', [HomeController::class, 'about'])->name("about");
 Route::get('/product', [HomeController::class, 'show'])->name("product-detail");
-Route::get('/cart', function () {
-    return view(view: 'home.cart');
-});
+
 Route::get('/login', function () {
     return view(view: 'home.login');
 })->name('login');
@@ -29,3 +27,5 @@ Route::post('logout', [AccountController::class, 'logout'])->name('logout');
 Route::get('/product/detail/{id}', [ProductController::class, 'show'])->name('productdetail');
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart/{id}', [CartController::class, 'create'])->name('addNewOrder');
+
+Route::get('/cart', [CartController::class, 'store'])->name('cart');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\democart;
 
 class CartController extends Controller
 {
@@ -22,17 +23,25 @@ class CartController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request, string $id)
+    public function create(Request $request, $productId)
     {
-        // var_dump($id, $request->quantity);
-        // die();
-        $product = Product::find($id);
+        $product = Product::find($productId);
+        
+        if (!$product) {
+            return redirect()->back()->with('error', 'Sản phẩm không tồn tại.');
+        }
+        // $userId = auth()->id(); // Lấy ID người dùng đã đăng nhập
+        $userId = 2;
+        if (!$userId) {
+            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng.');
+        }
         Cart::create([
-            'user_id' => '2',
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity
+            'user_id' =>$userId,
+            'product_id' => $productId,
+            'quantity' => $request->input('quantity', 1)
         ]);
-        return redirect()->route('cart');
+
+        return redirect()->route('cart')->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
     }
 
     /**
@@ -40,7 +49,21 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // var_dump($carts = Cart::all());
+        // die();
+        if ($request->ajax()) {
+            $carts = Cart::all();
+            return response()->json([
+                'carts' => $carts->items(),
+            ]);
+        }
+        $carts = Cart::all();
+        $viewDatas = [
+            'title' => 'Cart Page',
+        ];
+        return view('home.cart')
+            ->with("carts", $carts)
+            ->with('viewData', $viewDatas);
     }
 
     /**
@@ -48,11 +71,11 @@ class CartController extends Controller
      */
     public function show(string $id)
     {
-        $product = Product::find($id);
-        $viewDatas = [
-            'title' => 'Cart page',
-        ];
-        return view('home.product-detail', compact('product'))->with('viewData', $viewDatas);;
+        // $product = Product::find($id);
+        // $viewDatas = [
+        //     'title' => 'Cart page',
+        // ];
+        // return view('home.cart', compact('product'))->with('viewData', $viewDatas);
     }
 
     /**
