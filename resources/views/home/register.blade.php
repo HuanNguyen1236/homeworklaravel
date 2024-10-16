@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', $viewData['title'])
 @section('content')
 <form action="{{ route('register') }}" method="POST">
     @csrf

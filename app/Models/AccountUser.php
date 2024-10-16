@@ -10,5 +10,6 @@ class AccountUser extends Authenticatable
     use HasFactory;
 
     // Các thuộc tính có thể được gán giá trị hàng loạt
-    protected $fillable = ['name', 'email', 'password', 'age', 'address'];
+    protected $table = 'account_users';
+    protected $fillable = ['name', 'email', 'password', 'age', 'address', 'avatar'];
 }
