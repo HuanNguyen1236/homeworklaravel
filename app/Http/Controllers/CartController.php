@@ -30,8 +30,7 @@ class CartController extends Controller
         if (!$product) {
             return redirect()->back()->with('error', 'Sản phẩm không tồn tại.');
         }
-        // $userId = auth()->id(); // Lấy ID người dùng đã đăng nhập
-        $userId = 2;
+        $userId = auth()->id(); // Lấy ID người dùng đã đăng nhập
         if (!$userId) {
             return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng.');
         }
