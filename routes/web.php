@@ -30,4 +30,11 @@ Route::post('/cart/{id}', [CartController::class, 'create'])->name('addNewOrder'
 
 Route::get('/cart', [CartController::class, 'store'])->name('cart');
 Route::get('/cart/removeallcart',[CartController::class, 'clearCart'])->name('clearCart');
+
 Route::get('/profile/{id}', [AccountController::class, 'show'])->name('profile');
+// Route để hiển thị form chỉnh sửa hồ sơ
+// Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+// Route để xử lý form chỉnh sửa hồ sơ
+Route::post('/profile/update', [AccountController::class, 'update'])->name('profile.update');
+

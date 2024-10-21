@@ -2,10 +2,21 @@
 @section('title', $viewData['title'])
 @section('content')
     <div class="container">
+        <!-- Thông báo thành công hoặc thất bại -->
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @elseif (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <div class="card">
             <div class="card-header">My profile</div>
             <div class="card-body">
-                <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <!-- Left side: Form -->
@@ -20,11 +31,11 @@
                                 <input type="email" class="form-control" id="email" name="email"
                                     placeholder="Enter email" value="{{ old('email', $user->email ?? '') }}" required>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="date_of_birth">Date of Birth</label>
                                 <input type="date" class="form-control" id="date_of_birth" name="date_of_birth"
                                     value="{{ old('date_of_birth', $user->date_of_birth ?? '') }}" required>
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label for="age">Age</label>
                                 <input type="number" class="form-control" id="age" name="age"
@@ -44,11 +55,11 @@
                                 </div>
                                 <div class="card-body">
                                     <!-- Current Image or Image Preview -->
-                                    <div>
-                                        <img id="imagePreview" style="min-width: 500px;"
-                                            src="{{ $user->avatar ? asset($user->avatar) : '#' }}" alt="Image Preview"
-                                            style="display: {{ $user->avatar ? 'block' : 'none' }}; max-width: 100%; height: auto;">
-                                    </div>
+                                    <img id="imagePreview" 
+                                        src="{{ $user->avatar ? asset($user->avatar) : '#' }}" 
+                                        alt="Image Preview" 
+                                        style="max-width: 100%; height: auto; object-fit: contain;">
+
                                     <!-- File upload -->
                                     <div class="input-group mb-3">
                                         <div class="custom-file">
@@ -61,12 +72,12 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-3">Save edit</button>
-                        <button type="submit" class="btn btn-danger mt-3">Remove edit</button>
+                        {{-- <button type="submit" class="btn btn-danger mt-3">Remove edit</button> --}}
                     </div>
                 </form>
             </div>
         </div>
-        {{-- <a class="nav-link active" href="{{ route('profile') }}"><h4>Profile</h4></a> <!-- Liên kết đến trang hồ sơ --> --}}
+
         <a class="nav-link active btn btn-secondary" href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <h4>Logout</h4>
