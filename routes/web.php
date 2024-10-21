@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AdminController;
 
 // Route::get('/',[HomeController::class, 'index'])->name('index');
 Route::get('/',[ProductController::class, 'store'])->name('index');
@@ -38,3 +39,7 @@ Route::get('/profile/{id}', [AccountController::class, 'show'])->name('profile')
 // Route để xử lý form chỉnh sửa hồ sơ
 Route::post('/profile/update', [AccountController::class, 'update'])->name('profile.update');
 
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::resource('products', ProductController::class);
+Route::resource('accounts', AccountController::class);
+Route::resource('carts', CartController::class);

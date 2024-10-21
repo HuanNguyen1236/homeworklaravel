@@ -22,6 +22,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
                     <div class="navbar-nav mx-auto">
+                        <a class="navbar-brand" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
                         <a class="nav-link active" href="#">
                             <h4>Product</h4>
                         </a>
