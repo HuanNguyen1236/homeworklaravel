@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -28,9 +29,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // var_dump($request);
-        // die();
-
         if ($request->ajax()) {
             $products = Product::paginate(3);
             return response()->json([

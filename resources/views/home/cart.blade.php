@@ -37,7 +37,7 @@
                   <div style="text-align: end;">
                     <h3>Total to pay: ${{ $totalPrice }}</h3>
                     <a href="#" class="btn btn-success">Purchase</a>
-                    <a href="#" class="btn btn-danger">Remove all product in cart</a>
+                    <a href="{{ route('clearCart') }}" class="btn btn-danger">Remove all product in cart</a>
                 </div>
             </div>
           </div>

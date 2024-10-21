@@ -100,4 +100,9 @@ class CartController extends Controller
     {
         //
     }
+    public function clearCart()
+    {
+        Cart::truncate(); // hoặc Cart::query()->delete();
+        return redirect()->back()->with('success', 'Cart cleared successfully.');
+    }
 }

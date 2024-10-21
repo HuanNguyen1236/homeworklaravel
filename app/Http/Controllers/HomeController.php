@@ -12,12 +12,20 @@ class HomeController extends Controller
     public function index()
     {
         $viewData = [];
-        $viewData["title"] = "Trang chu - Online Store";
-        return view('home.index')->with("viewData", $viewData);
+        $viewData = 
+        [
+            'title'=>"Trang chu - Online Store",
+        ];
+        return view('home.index')
+            ->with("viewData", $viewData);
     }
 
     public function about()
     {
+        $viewData = 
+        [
+            'title'=> "About",
+        ];
         $data1 = "Gioi thieu - Online Store";
         $data2 = "Gioi thieu";
         $description = "Day la trang gioi thieu!";
@@ -26,7 +34,8 @@ class HomeController extends Controller
             ->with("title", $data1)
             ->with("subtitle", $data2)
             ->with("description", $description)
-            ->with("author", $author);
+            ->with("author", $author)
+            ->with('viewData', $viewData);
     }
 
     /**

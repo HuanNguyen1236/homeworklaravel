@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', $title)
+@section('title', $viewData['title'])
 @section('subtitle', $subtitle)
 @section('content')
     <div class="container">

@@ -21,41 +21,30 @@ class AccountController extends Controller
 
     // Xử lý đăng ký
     public function register(Request $request)
-    {   
-        // var_dump($request);
-        // die();
-        // Xác thực dữ liệu từ form
+    { 
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:account_users', // Email phải là duy nhất trong bảng account_users
-            'password' => 'required|string|min:8|confirmed', // Yêu cầu xác nhận mật khẩu
+            'email' => 'required|email|unique:account_users', 
+            'password' => 'required|string|min:8|confirmed', 
             'age' => 'required|integer|min:18',
             'address' => 'nullable|string|max:255',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        // Tạo người dùng mới
-        // AccountUser::create([
-        //     'name' => $request->name,
-        //     'email' => $request->email,
-        //     'password' => Hash::make($request->password), 
-        //     'age' => $request->age,
-        //     'address' => $request->address,
-        // ]);
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'age' => $request->age,
             'address' => $request->address,
-            'remember_token'=>$request->_token,
+            'remember_token' => $request->_token,
         ]);
-
-        // Đăng nhập người dùng ngay sau khi đăng ký thành công
-        // Auth::attempt($request->only('email', 'password'));
-
+        if ($request->hasFile('avatar')) {
+            $fileName = 'user_' . $user->id . '.' . $request->file('avatar')->getClientOriginalExtension();
+            $request->file('avatar')->move(public_path('img'), $fileName);
+            $user->update(['avatar' => 'img/' . $fileName]);
+        }
         return redirect()->route('login')->with('success', 'Registration successful!');
     }
-
-    // Hiển thị form đăng nhập
     public function showLoginForm()
     {
         $viewData = [
@@ -64,7 +53,6 @@ class AccountController extends Controller
         return view('home.login')->with('viewData', $viewData);
     }
 
-    // Xử lý đăng nhập
     public function login(Request $request)
     {
         // Xác thực thông tin đăng nhập

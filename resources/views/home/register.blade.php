@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', $viewData['title'])
 @section('content')
-<form action="{{ route('register') }}" method="POST">
+<form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
         <label for="name">Name</label>
@@ -23,9 +23,15 @@
         <label for="age">Age</label>
         <input type="number" class="form-control" id="age" name="age" placeholder="Enter your age" required>
     </div>
-    <div class="form-group">
+    <div class="form-group">    
         <label for="address">Address</label>
         <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address">
+    </div>
+    <div class="input-group mb-3">
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="avatar" name="avatar" onchange="updateFileName()">
+            <label class="custom-file-label" for="avatar">Choose file</label>
+        </div>
     </div>
     <button type="submit" class="btn btn-primary">Register</button>
 </form>
