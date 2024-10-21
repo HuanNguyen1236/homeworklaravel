@@ -78,4 +78,13 @@ class AccountController extends Controller
         Auth::logout();
         return redirect()->route('loginForm')->with('success', 'Logged out successfully!');
     }
+     
+    public function show(string $id)
+    {
+        $user = User::find($id);
+        $viewDatas = [
+            'title' => 'Profile',
+        ];
+        return view('home.profile', compact('user'))->with('viewData', $viewDatas);
+    }
 }

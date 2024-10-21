@@ -30,3 +30,4 @@ Route::post('/cart/{id}', [CartController::class, 'create'])->name('addNewOrder'
 
 Route::get('/cart', [CartController::class, 'store'])->name('cart');
 Route::get('/cart/removeallcart',[CartController::class, 'clearCart'])->name('clearCart');
+Route::get('/profile/{id}', [AccountController::class, 'show'])->name('profile');

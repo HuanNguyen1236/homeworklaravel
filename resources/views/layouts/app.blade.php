@@ -46,8 +46,7 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
-                            
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link active" href="{{ route('profile', ['id' => (Auth::user())->id]) }}">
                                 <div class="avatar">
                                     @if((Auth::user())->avatar)
                                     <img src="{{ asset((Auth::user())->avatar) }}" alt="User Avatar">
