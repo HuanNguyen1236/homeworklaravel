@@ -19,9 +19,25 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',         
+            'description' => 'required|string|max:1000', 
+            'price' => 'required|numeric|min:0',         
+        ]);
+
+        $product = Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+        ]);
+        if ($request->hasFile('avatar')) {
+            $fileName = 'product_' . $product->id . '.' . $request->file('avatar')->getClientOriginalExtension();
+            $request->file('avatar')->move(public_path('img'), $fileName);
+            $product->update(['avatar' => 'img/' . $fileName]);
+        }
+        return redirect()->route('login')->with('success', 'Registration successful!');
     }
 
     /**

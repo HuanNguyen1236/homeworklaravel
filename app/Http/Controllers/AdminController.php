@@ -15,14 +15,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        $accounts = User::all();
-        $carts = Cart::all();
-        $viewData = [
-            'title'=>'Admin Dashboard',
-        ];
 
-        return view('admin.adminpanel', compact('products', 'accounts', 'carts'))->with('viewData', $viewData);
+        return view('admin.home.home');
     }
 
     /**
