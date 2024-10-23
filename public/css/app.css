@@ -34,3 +34,33 @@ nav {
     height: auto;
     display: block;
 }
+.admin-panel {
+    height: 100vh; /* Chiều cao toàn màn hình */
+    background-color: #f8f9fa; /* Màu nền nhạt */
+  }
+
+  .admin-header {
+    padding: 20px;
+    background-color: #343a40; /* Màu nền tối */
+    color: white;
+    text-align: center;
+    font-size: 24px;
+  }
+
+  .admin-sidebar {
+    padding: 20px;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  /* Ẩn tất cả các section, chỉ hiện section được chọn */
+  .section {
+    display: none;
+  }
+
+  /* Mặc định hiển thị Dashboard khi load */
+  .section.active {
+    display: block;
+  }

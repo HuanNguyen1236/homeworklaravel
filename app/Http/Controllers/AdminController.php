@@ -22,7 +22,7 @@ class AdminController extends Controller
             'title'=>'Admin Dashboard',
         ];
 
-        return view('admin.dashboard', compact('products', 'accounts', 'carts'))->with('viewData', $viewData);
+        return view('admin.adminpanel', compact('products', 'accounts', 'carts'))->with('viewData', $viewData);
     }
 
     /**
@@ -71,5 +71,45 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function storeUser(Request $request)
+    {
+        if ($request->ajax()) {
+            $users = User::all();
+            return response()->json([
+                'users' => $users->items(),
+                'hasMore' => $users->hasMorePages(),
+            ]);
+        }
+        // $products = Product::all();
+        $users = User::all();
+        return view('admin.home.user')
+            ->with("users", $users);
+    }
+    public function storeProduct(Request $request)
+    {
+        if ($request->ajax()) {
+            $products = Product::all();
+            return response()->json([
+                'products' => $products->items(),
+                'hasMore' => $products->hasMorePages(),
+            ]);
+        }
+        $products = Product::all();
+        return view('admin.home.product')
+            ->with("products", $products);
+    }
+    public function storeCart(Request $request)
+    {
+        if ($request->ajax()) {
+            $carts = Cart::all();
+            return response()->json([
+                'carts' => $carts->items(),
+                'hasMore' => $carts->hasMorePages(),
+            ]);
+        }
+        $carts = Cart::all();
+        return view('admin.home.cart')
+            ->with("carts", $carts);
     }
 }

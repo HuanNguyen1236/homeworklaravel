@@ -8,7 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 
 // Route::get('/',[HomeController::class, 'index'])->name('index');
-Route::get('/',[ProductController::class, 'store'])->name('index');
+Route::get('/', [ProductController::class, 'store'])->name('index');
 Route::get('/about', [HomeController::class, 'about'])->name("about");
 Route::get('/product', [HomeController::class, 'show'])->name("product-detail");
 
@@ -30,16 +30,12 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart/{id}', [CartController::class, 'create'])->name('addNewOrder');
 
 Route::get('/cart', [CartController::class, 'store'])->name('cart');
-Route::get('/cart/removeallcart',[CartController::class, 'clearCart'])->name('clearCart');
+Route::get('/cart/removeallcart', [CartController::class, 'clearCart'])->name('clearCart');
 
 Route::get('/profile/{id}', [AccountController::class, 'show'])->name('profile');
-// Route để hiển thị form chỉnh sửa hồ sơ
-// Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-
-// Route để xử lý form chỉnh sửa hồ sơ
 Route::post('/profile/update', [AccountController::class, 'update'])->name('profile.update');
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-Route::resource('products', ProductController::class);
-Route::resource('accounts', AccountController::class);
-Route::resource('carts', CartController::class);
+Route::get('/admin/user', [AdminController::class, 'storeUser'])->name('listUser');
+Route::get('/admin/product', [AdminController::class, 'storeProduct'])->name('listProduct');
+Route::get('/admin/cart', [AdminController::class, 'storeCart'])->name('listCart');
