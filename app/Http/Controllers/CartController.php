@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\democart;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -48,20 +49,21 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        // var_dump($carts = Cart::all());
-        // die();
+        $user = Auth::user();
+        
         if ($request->ajax()) {
-            $carts = Cart::all();
+            $carts = Cart::where('user_id', $user->id)->get();
             return response()->json([
-                'carts' => $carts->items(),
+                'carts' => $carts->toArray(),
             ]);
         }
-        $carts = Cart::all();
+
+        $carts = Cart::where('user_id', $user->id)->get();
         $viewDatas = [
             'title' => 'Cart Page',
         ];
         return view('home.cart')
-            ->with("carts", $carts)
+            ->with('carts', $carts)
             ->with('viewData', $viewDatas);
     }
 

@@ -142,19 +142,4 @@ class AccountController extends Controller
             return redirect()->route('profile', ['id' => $user->id])->with('error', 'There was an error updating your profile.');
         }
     }
-
-    public function store(Request $request)
-    {
-        if ($request->ajax()) {
-            $products = User::all();
-            return response()->json([
-                'products' => $products->items(),
-                'hasMore' => $products->hasMorePages(),
-            ]);
-        }
-        // $products = Product::all();
-        $users = User::all();
-        return view('admin.home.user')
-            ->with("users", $users);
-    }
 }
