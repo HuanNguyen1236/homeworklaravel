@@ -38,4 +38,6 @@ Route::post('/profile/update', [AccountController::class, 'update'])->name('prof
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 Route::get('/admin/user', [AdminController::class, 'storeUser'])->name('listUser');
 Route::get('/admin/product', [AdminController::class, 'storeProduct'])->name('listProduct');
+Route::get('/admin/product/newproduct', [AdminController::class, 'createProduct'])->name('createnewproduct');
+Route::post('/admin/product/newproducts', [ProductController::class, 'create'])->name('product.create');
 Route::get('/admin/cart', [AdminController::class, 'storeCart'])->name('listCart');

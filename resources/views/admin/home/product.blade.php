@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header" style="justify-content: space-between; display:flex;">
             <h2>List product</h2>
-            <button type="button" class="btn btn-primary"> + Add new product</button>
+            <a type="button" class="btn btn-primary" href='{{ route('createnewproduct') }}'> + Add new product</a>
         </div>
         <div class="card-body">
             <table class="table">
@@ -21,7 +21,7 @@
                     @foreach ($products as $product)
                         <tr>
                             <th scope="row">{{ $product->id }}</th>
-                            <td><img src="{{ asset('img/' . $product->image . '.jpg') }}" alt="" style="width:30%">
+                            <td><img src="{{ asset($product->image) }}" alt="" style="width:30%">
                             </td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->description }}</td>

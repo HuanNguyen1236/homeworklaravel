@@ -31,14 +31,19 @@ class ProductController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
+            'items' => $request->description,
         ]);
+
+        // Cập nhật đúng cột 'image' thay vì 'avatar'
         if ($request->hasFile('avatar')) {
             $fileName = 'product_' . $product->id . '.' . $request->file('avatar')->getClientOriginalExtension();
             $request->file('avatar')->move(public_path('img'), $fileName);
-            $product->update(['avatar' => 'img/' . $fileName]);
+            $product->update(['image' => 'img/' . $fileName]); // Sửa 'avatar' thành 'image'
         }
-        return redirect()->route('login')->with('success', 'Registration successful!');
+
+        return redirect()->route('listProduct')->with('success', 'Product created successfully!');
     }
+
 
     /**
      * Store a newly created resource in storage.
