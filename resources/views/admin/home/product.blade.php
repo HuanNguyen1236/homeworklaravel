@@ -28,6 +28,7 @@
                             <td>{{ $product->price }}</td>
                             <td>
                                 <input type="checkbox">
+                                <a href="{{ route('product.edit', ['id' => $product->id]) }}">Edit product</a>
                             </td>
                         </tr>
                     @endforeach

@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -22,9 +22,9 @@ class ProductController extends Controller
     public function create(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',         
-            'description' => 'required|string|max:1000', 
-            'price' => 'required|numeric|min:0',         
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'price' => 'required|numeric|min:0',
         ]);
 
         $product = Product::create([
@@ -73,7 +73,7 @@ class ProductController extends Controller
     public function show(string $id)
     {
         $product = Product::find($id);
-         $viewDatas = [
+        $viewDatas = [
             'title' => 'Home',
         ];
         return view('home.product-detail', compact('product'))->with('viewData', $viewDatas);
@@ -92,7 +92,32 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $product = Product::find($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|integer|min:0',
+            'description' => 'required|string|max:255',
+
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+        ]);
+        try {
+            $product->name = $request->input('name');
+            $product->price = $request->input('price');
+            $product->description = $request->input('description');
+            if ($request->hasFile('image')) {
+                if ($product->image && file_exists(public_path($product->image))) {
+                    unlink(public_path($product->image));
+                }
+                $fileName = 'product_' . $product->id . '.' . $request->file('image')->getClientOriginalExtension();
+                $request->file('image')->move(public_path('img'), $fileName);
+                $product->update(['image' => 'img/' . $fileName]);
+            }
+            $product->save();
+            return redirect()->route('listProduct', ['id' => $product->id])->with('success', 'Profile updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('listProduct', ['id' => $product->id])->with('error', 'There was an error updating your profile.');
+        }
     }
 
     /**

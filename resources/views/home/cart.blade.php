@@ -25,7 +25,7 @@
                               $totalPrice += $cartTotal;
                           @endphp
                           <tr>
-                              <th scope="row"><img src="{{ asset('img/' . $cart->product->image . '.jpg') }}" alt="" style="width:30%"></th>
+                              <th scope="row"><img src="{{ asset($cart->product->image) }}" alt="" style="width:30%"></th>
                               <td>{{ $cart->product->name }}</td>
                               <td>{{ $cart->quantity }}</td>
                               <td>${{ $cart->product->price }}</td>

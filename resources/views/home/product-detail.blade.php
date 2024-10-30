@@ -7,7 +7,7 @@
             @csrf
             <div class="row">
                 <div class="col-lg-4 ms-auto">
-                    <img src="{{ asset('img/' . $product->image . '.jpg') }}" class="img-fluid rounded">
+                    <img src="{{ asset($product->image) }}" class="img-fluid rounded">
                 </div>
                 <div class="col-lg-4 me-auto">
                     <p class="lead"><b><h2>{{ $product->name }}</h2></b></p>

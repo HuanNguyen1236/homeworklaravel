@@ -51,7 +51,13 @@ class AdminController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // var_dump(Product::find($id));
+        // die();
+        $product = Product::find($id);
+        $viewDatas = [
+            'title' => 'Edit product',
+        ];
+        return view('admin.home.updateproduct', compact('product'))->with('viewData', $viewDatas);
     }
 
     /**
