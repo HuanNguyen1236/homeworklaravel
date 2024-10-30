@@ -24,10 +24,10 @@
                     @foreach ($carts as $cart)
                         <tr>
                             <th scope="row">{{ $cart->id }}</th>
-                            <td><img src="{{ asset('img/' . $cart->product->image . '.jpg') }}" alt=""
+                            <td><img src="{{ asset($cart->product->image) }}" alt=""
                                     style="width:30%"></td>
-                            <td>{{ $cart->user->id }}</td>
-                            <td>{{ $cart->product->id }}</td>
+                            <td>{{ $cart->user_id }}</td>
+                            <td>{{ $cart->product_id }}</td>
                             <td>{{ $cart->product->name }}</td>
                             <td>{{ $cart->quantity }}</td>
                             <td>${{ $cart->quantity * $cart->product->price }}</td>
