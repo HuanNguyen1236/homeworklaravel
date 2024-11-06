@@ -32,12 +32,6 @@
                                     product</a>
                                 <a class="btn btn-danger"
                                     href="{{ route('admin.removeProduct', ['id' => $product->id]) }}">Delete product</a>
-                                {{-- <button type="button" class="btn btn-info"
-                                    href="{{ route('product.edit', ['id' => $product->id]) }}">Edit
-                                    product</button>
-                                <button type="button" class="btn btn-warning"
-                                    href="{{ route('admin.removeProduct', ['id' => $product->id]) }}">Delete
-                                    product</button> --}}
                             </td>
                         </tr>
                     @endforeach
