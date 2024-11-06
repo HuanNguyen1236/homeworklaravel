@@ -125,6 +125,20 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        
+        $product = Product::find($id);
+        if ($product) {
+            $product->delete(); 
+            if ($product->image && file_exists(public_path($product->image))) {
+                unlink(public_path($product->image));
+            }
+            return redirect()->back()->with('success', 'product cleared successfully.');
+        }
+        return redirect()->back()->with('error', 'Product not found.');
+    }
+    public function clearProduct()
+    {
+        Product::truncate();
+        return redirect()->back()->with('success', 'Cart cleared successfully.');
     }
 }
