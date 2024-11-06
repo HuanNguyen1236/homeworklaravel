@@ -14,7 +14,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
                         <th scope="col">Price</th>
-                        {{-- <th><input type="checkbox"></th> --}}
+                        <th><input type="checkbox"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,16 +28,16 @@
                             <td>{{ $product->price }}</td>
                             <td style="display:flex">
                                 {{-- <input type="checkbox"> --}}
-                                {{-- <a class='btn-btn-light' href="{{ route('product.edit', ['id' => $product->id]) }}">Edit
+                                <a class="btn btn-info" href="{{ route('product.edit', ['id' => $product->id]) }}" >Edit
                                     product</a>
-                                <a class='btn-btn-danger'
-                                    href="{{ route('admin.removeProduct', ['id' => $product->id]) }}">Delete product</a> --}}
-                                <button type="button" class="btn btn-info"
+                                <a class="btn btn-danger"
+                                    href="{{ route('admin.removeProduct', ['id' => $product->id]) }}">Delete product</a>
+                                {{-- <button type="button" class="btn btn-info"
                                     href="{{ route('product.edit', ['id' => $product->id]) }}">Edit
                                     product</button>
                                 <button type="button" class="btn btn-warning"
                                     href="{{ route('admin.removeProduct', ['id' => $product->id]) }}">Delete
-                                    product</button>
+                                    product</button> --}}
                             </td>
                         </tr>
                     @endforeach
