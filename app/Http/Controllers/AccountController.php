@@ -142,4 +142,21 @@ class AccountController extends Controller
             return redirect()->route('profile', ['id' => $user->id])->with('error', 'There was an error updating your profile.');
         }
     }
+    public function destroy(string $id)
+    {
+        $user = User::find($id);
+        if ($user) {
+            $user->delete(); 
+            if ($user->avatar && file_exists(public_path($user->avatar))) {
+                unlink(public_path($user->avatar));
+            }
+            return redirect()->back()->with('success', 'User cleared successfully.');
+        }
+        return redirect()->back()->with('error', 'User not found.');
+    }
+    public function clearUser()
+    {
+        User::truncate();
+        return redirect()->back()->with('success', 'Cart cleared successfully.');
+    }
 }

@@ -32,7 +32,7 @@
                             <td>{{ $cart->quantity }}</td>
                             <td>${{ $cart->quantity * $cart->product->price }}</td>
                             <td>
-                                <input type="checkbox">
+                                <a href="{{ route('admin.removeCart', ['id' => $cart->id]) }}" class="btn btn-danger">Remove cart</a>
                             </td>
                         </tr>
                     @endforeach

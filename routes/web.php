@@ -46,3 +46,6 @@ Route::post('/admin/product/newproducts', [ProductController::class, 'create'])-
 Route::get('/admin/cart', [AdminController::class, 'storeCart'])->name('listCart');
 Route::get('/admin/product/remove/{id}', [ProductController::class, 'destroy'])->name('admin.removeProduct');
 Route::get('/admin/product/clearAll', [ProductController::class, 'clearProduct'])->name('clearProduct');
+Route::get('/admin/user/remove/{id}', [AccountController::class, 'destroy'])->name('admin.removeUser');
+Route::get('/admin/user/clearAll', [AccountController::class, 'clearUser'])->name('clearUser');
+Route::get('/admin/cart/remove/{id}', [CartController::class, 'destroy'])->name('admin.removeCart');

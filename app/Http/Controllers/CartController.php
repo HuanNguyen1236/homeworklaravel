@@ -18,7 +18,8 @@ class CartController extends Controller
         $viewDatas = [
             'title' => 'Cart page',
         ];
-        return view ('home.cart')->with('viewData', $viewDatas);;
+        return view('home.cart')->with('viewData', $viewDatas);
+        ;
     }
 
     /**
@@ -31,12 +32,12 @@ class CartController extends Controller
         if (!$product) {
             return redirect()->back()->with('error', 'Sản phẩm không tồn tại.');
         }
-        $userId = auth()->id(); // Lấy ID người dùng đã đăng nhập
+        $userId = auth()->id();
         if (!$userId) {
             return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng.');
         }
         Cart::create([
-            'user_id' =>$userId,
+            'user_id' => $userId,
             'product_id' => $productId,
             'quantity' => $request->input('quantity', 1)
         ]);
@@ -50,7 +51,7 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        
+
         if ($request->ajax()) {
             $carts = Cart::where('user_id', $user->id)->get();
             return response()->json([
@@ -100,7 +101,12 @@ class CartController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $cart = Cart::find($id);
+        if ($cart) {
+            $cart->delete();
+            return redirect()->back()->with('success', 'Cart cleared successfully.');
+        }
+        return redirect()->back()->with('error', 'Cart not found.');
     }
     public function clearCart()
     {

@@ -26,8 +26,11 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->age }}</td>
                             <td>{{ $user->address }}</td>
-                            <td>
-                                <input type="checkbox">
+                            <td style="display:flex">
+                                <a href="{{ route('admin.removeUser', ['id' => $user->id]) }}" class="btn btn-danger">Remove user</a>
+                                {{-- <button type="button" class="btn btn-warning"
+                                    href="{{ route('admin.removeUser', ['id' => $user->id]) }}">Delete
+                                    User</button> --}}
                             </td>
                         </tr>
                     @endforeach
@@ -35,7 +38,7 @@
             </table>
             <hr>
             <div style="text-align: end">
-                <button type="button" class="btn btn-danger">Remove all cart</button>
+                <a href="{{ route('clearUser') }}" class="btn btn-danger">Remove all user</a>
             </div>
         </div>
     </div>
