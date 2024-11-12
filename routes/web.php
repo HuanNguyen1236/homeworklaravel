@@ -26,14 +26,6 @@ Route::post('login', [AccountController::class, 'login'])->name('login');
 Route::post('logout', [AccountController::class, 'logout'])->name('logout');
 
 Route::get('/product/detail/{id}', [ProductController::class, 'show'])->name('productdetail');
-Route::get('/cart', [CartController::class, 'index'])->name('cart');
-Route::post('/cart/{id}', [CartController::class, 'create'])->name('addNewOrder');
-
-Route::get('/cart', [CartController::class, 'store'])->name('cart');
-Route::get('/cart/removeallcart', [CartController::class, 'clearCart'])->name('clearCart');
-
-Route::get('/profile/{id}', [AccountController::class, 'show'])->name('profile');
-Route::post('/profile/update', [AccountController::class, 'update'])->name('profile.update');
 
 // middleware admin
 Route::middleware('admin')->group(function () {
@@ -50,4 +42,14 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/user/remove/{id}', [AccountController::class, 'destroy'])->name('admin.removeUser');
     Route::get('/admin/user/clearAll', [AccountController::class, 'clearUser'])->name('clearUser');
     Route::get('/admin/cart/remove/{id}', [CartController::class, 'destroy'])->name('admin.removeCart');
+});
+
+// middleware user - logged in
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user/cart', [CartController::class, 'index'])->name('cart');
+    Route::post('/user/cart/{id}', [CartController::class, 'create'])->name('addNewOrder');
+    Route::get('/user/cart', [CartController::class, 'store'])->name('cart');
+    Route::get('/user/cart/removeallcart', [CartController::class, 'clearCart'])->name('clearCart');
+    Route::get('/user/profile/{id}', [AccountController::class, 'show'])->name('profile');
+    Route::post('/user/profile/update', [AccountController::class, 'update'])->name('profile.update');
 });

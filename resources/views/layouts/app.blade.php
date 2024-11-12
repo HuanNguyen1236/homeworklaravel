@@ -24,7 +24,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
                     <div class="navbar-a mx-auto">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link active" href="{{ route('index') }}">
                             <h4>Product</h4>
                         </a>
                         <a class="nav-link active" href="{{ route('cart') }}">
