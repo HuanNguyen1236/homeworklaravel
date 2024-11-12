@@ -64,3 +64,13 @@ nav {
   .section.active {
     display: block;
   }
+  .nav-link{
+    margin-right: 20px;
+    padding-left: 10px;
+  }
+  .navbar-a{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }

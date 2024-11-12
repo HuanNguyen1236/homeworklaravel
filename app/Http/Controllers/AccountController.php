@@ -16,18 +16,18 @@ class AccountController extends Controller
     public function showRegistrationForm()
     {
         $viewData = [
-            'title'=>'Register',
+            'title' => 'Register',
         ];
         return view('home.register')->with('viewData', $viewData);
     }
 
     // Xử lý đăng ký
     public function register(Request $request)
-    { 
+    {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:account_users', 
-            'password' => 'required|string|min:8|confirmed', 
+            'email' => 'required|email|unique:account_users',
+            'password' => 'required|string|min:8|confirmed',
             'age' => 'required|integer|min:18',
             'address' => 'nullable|string|max:255',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -38,6 +38,7 @@ class AccountController extends Controller
             'password' => Hash::make($request->password),
             'age' => $request->age,
             'address' => $request->address,
+            'balance' => 1000,
             'remember_token' => $request->_token,
         ]);
         if ($request->hasFile('avatar')) {
@@ -50,7 +51,7 @@ class AccountController extends Controller
     public function showLoginForm()
     {
         $viewData = [
-            'title'=>'Login',
+            'title' => 'Login',
         ];
         return view('home.login')->with('viewData', $viewData);
     }
@@ -58,20 +59,27 @@ class AccountController extends Controller
     public function login(Request $request)
     {
         // Xác thực thông tin đăng nhập
-        // var_dump($request->email);
-        // die();
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
-        // return redirect()->route('index')->with('success', 'Login successful!');
 
         // Kiểm tra thông tin đăng nhập
         if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->route('index')->with('success', 'Login successful!');
+            // Lấy thông tin người dùng đã đăng nhập
+            $user = Auth::user();
+            // Kiểm tra vai trò của người dùng
+            if ($user->role === 'admin') {
+                // Nếu vai trò là 'admin', chuyển hướng tới trang quản trị
+                return redirect()->route('admin.dashboard')->with('success', 'Login successful!');
+            } else {
+                // Nếu không phải admin, chuyển hướng tới trang chủ người dùng
+                return redirect()->route('index')->with('success', 'Login successful!');
+            }
         }
 
-        // return back()->withErrors(['email' => 'Invalid credentials'])->withInput();
+        // Nếu thông tin đăng nhập không hợp lệ, quay lại với thông báo lỗi
+        return back()->withErrors(['email' => 'Invalid credentials'])->withInput();
     }
 
     // Đăng xuất
@@ -80,7 +88,7 @@ class AccountController extends Controller
         Auth::logout();
         return redirect()->route('loginForm')->with('success', 'Logged out successfully!');
     }
-     
+
     public function show(string $id)
     {
         $user = User::find($id);
@@ -125,11 +133,11 @@ class AccountController extends Controller
                 if ($user->avatar && file_exists(public_path($user->avatar))) {
                     unlink(public_path($user->avatar));
                 }
-            
+
                 $fileName = 'user_' . $user->id . '.' . $request->file('avatar')->getClientOriginalExtension();
                 $request->file('avatar')->move(public_path('img'), $fileName);
                 $user->update(['avatar' => 'img/' . $fileName]);
-            }        
+            }
 
             // Lưu user
             $user->save();
@@ -146,7 +154,7 @@ class AccountController extends Controller
     {
         $user = User::find($id);
         if ($user) {
-            $user->delete(); 
+            $user->delete();
             if ($user->avatar && file_exists(public_path($user->avatar))) {
                 unlink(public_path($user->avatar));
             }

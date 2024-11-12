@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous" />
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
     <title>@yield('title', 'Online Store')</title>
 </head>
@@ -16,13 +17,13 @@
             <a class="navbar-brand" href="{{ route('index') }}">
                 <h2>Online Store</h2>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button>            
+            </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
-                    <div class="navbar-nav mx-auto">
-                        <a class="navbar-brand" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
+                    <div class="navbar-a mx-auto">
                         <a class="nav-link active" href="#">
                             <h4>Product</h4>
                         </a>
@@ -34,11 +35,18 @@
                         </a>
                         @if (Auth::check())
                             <!-- Kiểm tra xem người dùng đã đăng nhập chưa -->
-
+                            @if (Auth::user()->getRole() == 'admin')
+                                <a class="nav-link active" href="{{ route('admin.dashboard') }}"
+                                    style="border-right: 2px solid white">
+                                    <h4>Admin Dashboard</h4>
+                                </a>
+                            @endif
                             <a class="nav-link active" href="{{ route('profile', ['id' => Auth::user()->id]) }}">
                                 <div class="avatar">
                                     @if (Auth::user()->avatar)
-                                        <img src="{{ asset(Auth::user()->avatar) }}" alt="User Avatar">
+                                        {{-- <img src="{{ asset(Auth::user()->avatar) }}" alt="User Avatar"> --}}
+                                        <img src="{{ asset(Auth::user()->avatar) }}"
+                                            style="width: 50px; height: 50px; border-radius: 100%; object-fit: cover;">
                                     @else
                                         <p>No avatar uploaded.</p>
                                     @endif

@@ -35,17 +35,19 @@ Route::get('/cart/removeallcart', [CartController::class, 'clearCart'])->name('c
 Route::get('/profile/{id}', [AccountController::class, 'show'])->name('profile');
 Route::post('/profile/update', [AccountController::class, 'update'])->name('profile.update');
 
-Route::get('/admin/product/show/{id}', [AdminController::class, 'edit'])->name('product.edit');
-Route::post('/admin/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
-
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-Route::get('/admin/user', [AdminController::class, 'storeUser'])->name('listUser');
-Route::get('/admin/product', [AdminController::class, 'storeProduct'])->name('listProduct');
-Route::get('/admin/product/newproduct', [AdminController::class, 'createProduct'])->name('createnewproduct');
-Route::post('/admin/product/newproducts', [ProductController::class, 'create'])->name('product.create');
-Route::get('/admin/cart', [AdminController::class, 'storeCart'])->name('listCart');
-Route::get('/admin/product/remove/{id}', [ProductController::class, 'destroy'])->name('admin.removeProduct');
-Route::get('/admin/product/clearAll', [ProductController::class, 'clearProduct'])->name('clearProduct');
-Route::get('/admin/user/remove/{id}', [AccountController::class, 'destroy'])->name('admin.removeUser');
-Route::get('/admin/user/clearAll', [AccountController::class, 'clearUser'])->name('clearUser');
-Route::get('/admin/cart/remove/{id}', [CartController::class, 'destroy'])->name('admin.removeCart');
+// middleware admin
+Route::middleware('admin')->group(function () {
+    Route::get('/admin/product/show/{id}', [AdminController::class, 'edit'])->name('product.edit');
+    Route::post('/admin/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/user', [AdminController::class, 'storeUser'])->name('listUser');
+    Route::get('/admin/product', [AdminController::class, 'storeProduct'])->name('listProduct');
+    Route::get('/admin/product/newproduct', [AdminController::class, 'createProduct'])->name('createnewproduct');
+    Route::post('/admin/product/newproducts', [ProductController::class, 'create'])->name('product.create');
+    Route::get('/admin/cart', [AdminController::class, 'storeCart'])->name('listCart');
+    Route::get('/admin/product/remove/{id}', [ProductController::class, 'destroy'])->name('admin.removeProduct');
+    Route::get('/admin/product/clearAll', [ProductController::class, 'clearProduct'])->name('clearProduct');
+    Route::get('/admin/user/remove/{id}', [AccountController::class, 'destroy'])->name('admin.removeUser');
+    Route::get('/admin/user/clearAll', [AccountController::class, 'clearUser'])->name('clearUser');
+    Route::get('/admin/cart/remove/{id}', [CartController::class, 'destroy'])->name('admin.removeCart');
+});
