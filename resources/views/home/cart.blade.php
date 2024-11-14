@@ -27,7 +27,6 @@
                             <td>{{ session('products')[$product->getId()] }}</td>
                         </tr>
                     @endforeach
-
                 </tbody>
             </table>
             <div class="row">
