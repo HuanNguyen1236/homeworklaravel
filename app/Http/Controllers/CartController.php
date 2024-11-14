@@ -13,22 +13,45 @@ class CartController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // create cart with session
+    public function index(Request $request)
     {
-        $viewDatas = [
-            'title' => 'Cart page',
-        ];
-        return view('home.cart')->with('viewData', $viewDatas);
-        ;
+        $total = 0;
+        $productsInCart = [];
+        $productsInSession = $request->session()->get("products");
+        if ($productsInSession) {
+            $productsInCart =
+                Product::findMany(array_keys($productsInSession));
+            $total = Product::sumPricesByQuantities(
+                $productsInCart,
+                $productsInSession
+            );
+        }
+        $viewData = [];
+        $viewData["title"] = "Cart - Online Store";
+        $viewData["subtitle"] = "Shopping Cart";
+        $viewData["total"] = $total;
+        $viewData["products"] = $productsInCart;
+        return view('home.cart')->with("viewData", $viewData);
     }
-
+    public function add(Request $request, $id)
+    {
+        $products = $request->session()->get("products");
+        $products[$id] = $request->input('quantity');
+        $request->session()->put('products', $products);
+        return redirect()->route('cart.index');
+    }
+    public function delete(Request $request)
+    {
+        $request->session()->forget('products');
+        return back();
+    }
     /**
      * Show the form for creating a new resource.
      */
     public function create(Request $request, $productId)
     {
         $product = Product::find($productId);
-        
         if (!$product) {
             return redirect()->back()->with('error', 'Sản phẩm không tồn tại.');
         }
@@ -41,7 +64,6 @@ class CartController extends Controller
             'product_id' => $productId,
             'quantity' => $request->input('quantity', 1)
         ]);
-
         return redirect()->route('cart')->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
     }
 
@@ -51,14 +73,12 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-
         if ($request->ajax()) {
             $carts = Cart::where('user_id', $user->id)->get();
             return response()->json([
                 'carts' => $carts->toArray(),
             ]);
         }
-
         $carts = Cart::where('user_id', $user->id)->get();
         $viewDatas = [
             'title' => 'Cart Page',
@@ -79,7 +99,6 @@ class CartController extends Controller
         // ];
         // return view('home.cart', compact('product'))->with('viewData', $viewDatas);
     }
-
     /**
      * Show the form for editing the specified resource.
      */

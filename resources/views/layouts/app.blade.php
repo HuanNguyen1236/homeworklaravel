@@ -27,7 +27,7 @@
                         <a class="nav-link active" href="{{ route('index') }}">
                             <h4>Product</h4>
                         </a>
-                        <a class="nav-link active" href="{{ route('cart') }}">
+                        <a class="nav-link active" href="{{ route('cart.index') }}">
                             <h4>Cart</h4>
                         </a>
                         <a class="nav-link active" href="{{ route('about') }}">

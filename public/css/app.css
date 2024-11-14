@@ -74,3 +74,11 @@ nav {
     justify-content: center;
     align-items: center;
   }
+  .product-detail{
+    display: flex;
+    flex-direction: row;
+  }
+  .info-product{
+    display: flex;
+    flex-direction: column;
+  }

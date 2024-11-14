@@ -46,10 +46,13 @@ Route::middleware('admin')->group(function () {
 
 // middleware user - logged in
 Route::middleware(['auth'])->group(function () {
-    Route::get('/user/cart', [CartController::class, 'index'])->name('cart');
-    Route::post('/user/cart/{id}', [CartController::class, 'create'])->name('addNewOrder');
-    Route::get('/user/cart', [CartController::class, 'store'])->name('cart');
-    Route::get('/user/cart/removeallcart', [CartController::class, 'clearCart'])->name('clearCart');
+    Route::get('/cart', 'App\Http\Controllers\CartController@index')->name("cart.index");
+    Route::get('/cart/delete', 'App\Http\Controllers\CartController@delete')->name("cart.delete");
+    Route::post('/cart/add/{id}', 'App\Http\Controllers\CartController@add')->name("cart.add");
+    // Route::get('/user/cart', [CartController::class, 'index'])->name('cart');
+    // Route::get('/user/cart', [CartController::class, 'store'])->name('cart');
+    // Route::post('/user/cart/{id}', [CartController::class, 'create'])->name('addNewOrder');
+    // Route::get('/user/cart/removeallcart', [CartController::class, 'clearCart'])->name('clearCart');
     Route::get('/user/profile/{id}', [AccountController::class, 'show'])->name('profile');
     Route::post('/user/profile/update', [AccountController::class, 'update'])->name('profile.update');
 });
