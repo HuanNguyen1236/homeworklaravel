@@ -51,8 +51,6 @@ class AdminController extends Controller
      */
     public function edit(string $id)
     {
-        // var_dump(Product::find($id));
-        // die();
         $product = Product::find($id);
         $viewDatas = [
             'title' => 'Edit product',
@@ -84,7 +82,6 @@ class AdminController extends Controller
                 'hasMore' => $users->hasMorePages(),
             ]);
         }
-        // $products = Product::all();
         $users = User::all();
         return view('admin.home.user')
             ->with("users", $users);

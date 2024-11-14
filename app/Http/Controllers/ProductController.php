@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-
+        //
     }
 
     /**
@@ -26,24 +26,20 @@ class ProductController extends Controller
             'description' => 'required|string|max:1000',
             'price' => 'required|numeric|min:0',
         ]);
-
         $product = Product::create([
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
             'items' => $request->description,
         ]);
-
         // Cập nhật đúng cột 'image' thay vì 'avatar'
         if ($request->hasFile('avatar')) {
             $fileName = 'product_' . $product->id . '.' . $request->file('avatar')->getClientOriginalExtension();
             $request->file('avatar')->move(public_path('img'), $fileName);
             $product->update(['image' => 'img/' . $fileName]); // Sửa 'avatar' thành 'image'
         }
-
         return redirect()->route('listProduct')->with('success', 'Product created successfully!');
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -57,7 +53,6 @@ class ProductController extends Controller
                 'hasMore' => $products->hasMorePages(),
             ]);
         }
-        // $products = Product::all();
         $products = Product::paginate(perPage: 6);
         $viewDatas = [
             'title' => 'Home',
@@ -93,7 +88,6 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         $product = Product::find($id);
-
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|integer|min:0',
@@ -125,7 +119,6 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        
         $product = Product::find($id);
         if ($product) {
             $product->delete(); 

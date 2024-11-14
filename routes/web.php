@@ -7,26 +7,17 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 
-// Route::get('/',[HomeController::class, 'index'])->name('index');
 Route::get('/', [ProductController::class, 'store'])->name('index');
 Route::get('/about', [HomeController::class, 'about'])->name("about");
 Route::get('/product', [HomeController::class, 'show'])->name("product-detail");
-
-Route::get('/login', function () {
-    return view(view: 'home.login');
-})->name('login');
-Route::get('/registers', function () {
-    return view(view: 'home.register');
-})->name('register');
-
+Route::get('/login', function () {return view(view: 'home.login');})->name('login');
+Route::get('/registers', function () {return view(view: 'home.register');})->name('register');
 Route::get('register', [AccountController::class, 'showRegistrationForm'])->name('registerForm');
 Route::post('register', [AccountController::class, 'register'])->name('register');
 Route::get('login', [AccountController::class, 'showLoginForm'])->name('loginForm');
 Route::post('login', [AccountController::class, 'login'])->name('login');
 Route::post('logout', [AccountController::class, 'logout'])->name('logout');
-
 Route::get('/product/detail/{id}', [ProductController::class, 'show'])->name('productdetail');
-
 // middleware admin
 Route::middleware('admin')->group(function () {
     Route::get('/admin/product/show/{id}', [AdminController::class, 'edit'])->name('product.edit');

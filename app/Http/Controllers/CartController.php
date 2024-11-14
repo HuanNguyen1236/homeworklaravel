@@ -66,7 +66,6 @@ class CartController extends Controller
         ]);
         return redirect()->route('cart')->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
     }
-
     /**
      * Store a newly created resource in storage.
      */

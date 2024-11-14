@@ -20,7 +20,6 @@ class AccountController extends Controller
         ];
         return view('home.register')->with('viewData', $viewData);
     }
-
     // Xử lý đăng ký
     public function register(Request $request)
     {
@@ -63,7 +62,6 @@ class AccountController extends Controller
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
-
         // Kiểm tra thông tin đăng nhập
         if (Auth::attempt($request->only('email', 'password'))) {
             // Lấy thông tin người dùng đã đăng nhập
@@ -77,7 +75,6 @@ class AccountController extends Controller
                 return redirect()->route('index')->with('success', 'Login successful!');
             }
         }
-
         // Nếu thông tin đăng nhập không hợp lệ, quay lại với thông báo lỗi
         return back()->withErrors(['email' => 'Invalid credentials'])->withInput();
     }
@@ -103,12 +100,10 @@ class AccountController extends Controller
     //     $user = Auth::user();
     //     return view('profile.edit', compact('user'));
     // }
-
     // Xử lý chỉnh sửa profile
     public function update(Request $request)
     {
         $user = Auth::user();
-
         // Validation dữ liệu từ form
         $request->validate([
             'name' => 'required|string|max:255',
@@ -118,7 +113,6 @@ class AccountController extends Controller
             'address' => 'nullable|string|max:255',
             'avatar' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Giới hạn dung lượng file avatar
         ]);
-
         try {
             // Cập nhật thông tin user
             $user->name = $request->input('name');
@@ -126,22 +120,18 @@ class AccountController extends Controller
             // $user->date_of_birth = $request->input('date_of_birth');
             $user->age = $request->input('age');
             $user->address = $request->input('address');
-
             // Nếu có file avatar được upload
             if ($request->hasFile('avatar')) {
                 // Xóa ảnh cũ nếu có
                 if ($user->avatar && file_exists(public_path($user->avatar))) {
                     unlink(public_path($user->avatar));
                 }
-
                 $fileName = 'user_' . $user->id . '.' . $request->file('avatar')->getClientOriginalExtension();
                 $request->file('avatar')->move(public_path('img'), $fileName);
                 $user->update(['avatar' => 'img/' . $fileName]);
             }
-
             // Lưu user
             $user->save();
-
             // Trả về thông báo thành công
             return redirect()->route('profile', ['id' => $user->id])->with('success', 'Profile updated successfully.');
 

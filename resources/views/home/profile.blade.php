@@ -12,7 +12,6 @@
                 {{ session('error') }}
             </div>
         @endif
-
         <div class="card">
             <div class="card-header">My profile</div>
             <div class="card-body">
@@ -59,7 +58,6 @@
                                         src="{{ $user->avatar ? asset($user->avatar) : '#' }}" 
                                         alt="Image Preview" 
                                         style="max-width: 100%; height: auto; object-fit: contain;">
-
                                     <!-- File upload -->
                                     <div class="input-group mb-3">
                                         <div class="custom-file">
@@ -77,7 +75,6 @@
                 </form>
             </div>
         </div>
-
         <a class="nav-link active btn btn-secondary" href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <h4>Logout</h4>

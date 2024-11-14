@@ -11,7 +11,6 @@
             {{ session('error') }}
         </div>
     @endif
-
     <div class="card">
         <div class="card-header">My profile</div>
         <div class="card-body">
@@ -33,7 +32,6 @@
                             </div>
                         </div>  
                     </div>
-                    
                     <!-- Right side: Image Preview -->
                     <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
                         <div class="card">
@@ -46,7 +44,6 @@
                                     src="" 
                                     alt="Image Preview" 
                                     style="max-width: 100%; height: auto; object-fit: contain;">
-
                                 <!-- File upload -->
                                 <div class="input-group mb-3">
                                     <div class="custom-file">
@@ -64,7 +61,6 @@
             </form>
         </div>
     </div>
-
     {{-- <a class="nav-link active btn btn-secondary" href="{{ route('logout') }}"
         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         <h4>Logout</h4>
