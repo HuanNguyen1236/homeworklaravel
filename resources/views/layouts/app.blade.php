@@ -30,6 +30,9 @@
                         <a class="nav-link active" href="{{ route('cart.index') }}">
                             <h4>Cart</h4>
                         </a>
+                        <a class="nav-link active" href="{{ route('order') }}">
+                            <h4>Order</h4>
+                        </a>
                         <a class="nav-link active" href="{{ route('about') }}">
                             <h4>About</h4>
                         </a>
