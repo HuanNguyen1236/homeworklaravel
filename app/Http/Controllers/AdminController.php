@@ -51,11 +51,10 @@ class AdminController extends Controller
      */
     public function edit(string $id)
     {
-        $product = Product::find($id);
         $viewDatas = [
             'title' => 'Edit product',
         ];
-        return view('admin.home.updateproduct', compact('product'))->with('viewData', $viewDatas);
+        return view('admin.home.updateproduct')->with('viewData', $viewDatas)->with('product', Product::find($id));
     }
 
     /**
@@ -82,9 +81,8 @@ class AdminController extends Controller
                 'hasMore' => $users->hasMorePages(),
             ]);
         }
-        $users = User::all();
         return view('admin.home.user')
-            ->with("users", $users);
+            ->with("users", User::all());
     }
     public function storeProduct(Request $request)
     {
@@ -95,9 +93,8 @@ class AdminController extends Controller
                 'hasMore' => $products->hasMorePages(),
             ]);
         }
-        $products = Product::all();
         return view('admin.home.product')
-            ->with("products", $products);
+            ->with("products", Product::all());
     }
     public function storeCart(Request $request)
     {
@@ -108,8 +105,7 @@ class AdminController extends Controller
                 'hasMore' => $carts->hasMorePages(),
             ]);
         }
-        $carts = Cart::all();
         return view('admin.home.cart')
-            ->with("carts", $carts);
+            ->with("carts", Cart::all());
     }
 }

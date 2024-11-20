@@ -1,7 +1,6 @@
 @extends('admin.adminpanel')
 @section('content')
 <div class="container">
-    <!-- Thông báo thành công hoặc thất bại -->
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -56,7 +55,6 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary mt-3">Update product</button>
-                    {{-- <button type="submit" class="btn btn-danger mt-3">Remove edit</button> --}}
                 </div>
             </form>
         </div>

@@ -2,7 +2,6 @@
 @section('title', $viewData['title'])
 @section('content')
     <div class="container">
-        <!-- Thông báo thành công hoặc thất bại -->
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -30,11 +29,6 @@
                                 <input type="email" class="form-control" id="email" name="email"
                                     placeholder="Enter email" value="{{ old('email', $user->email ?? '') }}" required>
                             </div>
-                            {{-- <div class="form-group">
-                                <label for="date_of_birth">Date of Birth</label>
-                                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth"
-                                    value="{{ old('date_of_birth', $user->date_of_birth ?? '') }}" required>
-                            </div> --}}
                             <div class="form-group">
                                 <label for="age">Age</label>
                                 <input type="number" class="form-control" id="age" name="age"
@@ -70,7 +64,6 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-3">Save edit</button>
-                        {{-- <button type="submit" class="btn btn-danger mt-3">Remove edit</button> --}}
                     </div>
                 </form>
             </div>

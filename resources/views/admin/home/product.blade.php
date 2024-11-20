@@ -27,7 +27,6 @@
                             <td>{{ $product->description }}</td>
                             <td>{{ $product->price }}</td>
                             <td style="display:flex">
-                                {{-- <input type="checkbox"> --}}
                                 <a class="btn btn-info" href="{{ route('product.edit', ['id' => $product->id]) }}" >Edit
                                     product</a>
                                 <a class="btn btn-danger"

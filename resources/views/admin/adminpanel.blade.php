@@ -34,7 +34,6 @@
                     </ul>
                 </div>
             </div>
-            <!-- Nội dung Bên Phải -->
             <div class="col-md-9 content">
                 <div class="shadow p-3 mb-5 bg-white rounded"
                     style="display: flex; justify-content: flex-end; align-items: center;">

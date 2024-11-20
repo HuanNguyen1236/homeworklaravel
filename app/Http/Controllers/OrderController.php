@@ -27,9 +27,8 @@ class OrderController extends Controller
                 'carts' => $order->toArray(),
             ]);
         }
-        $orders = Order::where('user_id', $user->id)->get();
         return view('home.order')
-            ->with('orders', $orders)
+            ->with('orders', Order::where('user_id', $user->id)->get())
             ->with('viewData', $viewData);
     }
 
@@ -44,7 +43,6 @@ class OrderController extends Controller
             'user_id' => $request->user_id,
         ]);
         $products = $request->session()->get('products', []);
-
         if (empty($products)) {
             return redirect()->back()->with('error', 'Giỏ hàng trống. Không thể tạo đơn hàng.');
         }
@@ -79,9 +77,8 @@ class OrderController extends Controller
         $viewData = [];
         $viewData["title"] = "Order - Online Store";
         $viewData["subtitle"] = "Shopping Order Detail";
-        $orderdetails = Item::where('order_id', $id)->get();
         return view('home.orderdetail')
-            ->with('orderdetails', $orderdetails)
+            ->with('orderdetails', Item::where('order_id', $id)->get())
             ->with('viewData', $viewData);
     }
 

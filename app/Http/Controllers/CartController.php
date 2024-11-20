@@ -78,12 +78,11 @@ class CartController extends Controller
                 'carts' => $carts->toArray(),
             ]);
         }
-        $carts = Cart::where('user_id', $user->id)->get();
         $viewDatas = [
             'title' => 'Cart Page',
         ];
         return view('home.cart')
-            ->with('carts', $carts)
+            ->with('carts', Cart::where('user_id', $user->id)->get())
             ->with('viewData', $viewDatas);
     }
 
@@ -92,11 +91,7 @@ class CartController extends Controller
      */
     public function show(string $id)
     {
-        // $product = Product::find($id);
-        // $viewDatas = [
-        //     'title' => 'Cart page',
-        // ];
-        // return view('home.cart', compact('product'))->with('viewData', $viewDatas);
+        //
     }
     /**
      * Show the form for editing the specified resource.
@@ -128,7 +123,7 @@ class CartController extends Controller
     }
     public function clearCart()
     {
-        Cart::truncate(); // hoặc Cart::query()->delete();
+        Cart::truncate();
         return redirect()->back()->with('success', 'Cart cleared successfully.');
     }
 }

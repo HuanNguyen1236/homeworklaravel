@@ -28,9 +28,6 @@
                             <td>{{ $user->address }}</td>
                             <td style="display:flex">
                                 <a href="{{ route('admin.removeUser', ['id' => $user->id]) }}" class="btn btn-danger">Remove user</a>
-                                {{-- <button type="button" class="btn btn-warning"
-                                    href="{{ route('admin.removeUser', ['id' => $user->id]) }}">Delete
-                                    User</button> --}}
                             </td>
                         </tr>
                     @endforeach

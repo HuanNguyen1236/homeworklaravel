@@ -37,7 +37,6 @@
                             <h4>About</h4>
                         </a>
                         @if (Auth::check())
-                            <!-- Kiểm tra xem người dùng đã đăng nhập chưa -->
                             @if (Auth::user()->getRole() == 'admin')
                                 <a class="nav-link active" href="{{ route('admin.dashboard') }}"
                                     style="border-right: 2px solid white">
@@ -47,7 +46,6 @@
                             <a class="nav-link active" href="{{ route('profile', ['id' => Auth::user()->id]) }}">
                                 <div class="avatar">
                                     @if (Auth::user()->avatar)
-                                        {{-- <img src="{{ asset(Auth::user()->avatar) }}" alt="User Avatar"> --}}
                                         <img src="{{ asset(Auth::user()->avatar) }}"
                                             style="width: 50px; height: 50px; border-radius: 100%; object-fit: cover;">
                                     @else

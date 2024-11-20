@@ -1,7 +1,6 @@
 @extends('admin.adminpanel')
 @section('content')
 <div class="container">
-    <!-- Thông báo thành công hoặc thất bại -->
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -56,18 +55,10 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary mt-3">Create new product</button>
-                    {{-- <button type="submit" class="btn btn-danger mt-3">Remove edit</button> --}}
                 </div>
             </form>
         </div>
     </div>
-    {{-- <a class="nav-link active btn btn-secondary" href="{{ route('logout') }}"
-        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <h4>Logout</h4>
-    </a>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form> --}}
 </div>
 <script>
     function previewImage(event) {

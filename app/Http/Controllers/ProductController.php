@@ -67,11 +67,10 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        $product = Product::find($id);
         $viewDatas = [
             'title' => 'Home',
         ];
-        return view('home.product-detail', compact('product'))->with('viewData', $viewDatas);
+        return view('home.product-detail')->with('viewData', $viewDatas)->with('product', Product::find($id));
     }
 
     /**
